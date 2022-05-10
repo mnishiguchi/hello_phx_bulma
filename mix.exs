@@ -7,7 +7,7 @@ defmodule HelloPhxBulma.MixProject do
       version: "0.1.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:gettext] ++ Mix.compilers(),
+      compilers: [:gettext] ++ Mix.compilers() ++ [:surface],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -26,6 +26,7 @@ defmodule HelloPhxBulma.MixProject do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(:dev), do: ["lib"] ++ catalogues()
   defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
@@ -51,7 +52,10 @@ defmodule HelloPhxBulma.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:dart_sass, "~> 0.5", runtime: Mix.env() == :dev},
-      {:bulma, "0.9.3"}
+      {:bulma, "0.9.3"},
+      {:surface, "~> 0.7.4"},
+      {:surface_bulma, "~> 0.4.0"},
+      {:surface_catalogue, "~> 0.4.0"}
     ]
   end
 
@@ -72,6 +76,12 @@ defmodule HelloPhxBulma.MixProject do
         "sass default --no-source-map --style=compressed",
         "phx.digest"
       ]
+    ]
+  end
+
+  def catalogues do
+    [
+      "priv/catalogue"
     ]
   end
 end
