@@ -95,6 +95,7 @@ defmodule HelloPhxBulmaWeb do
       # Import basic rendering functionality (render, render_layout, etc)
       import Phoenix.View
 
+      import HelloPhxBulmaWeb.BulmaInputHelpers
       import HelloPhxBulmaWeb.ErrorHelpers
       import HelloPhxBulmaWeb.Gettext
       alias HelloPhxBulmaWeb.Router.Helpers, as: Routes

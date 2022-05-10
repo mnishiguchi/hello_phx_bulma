@@ -1,10 +1,41 @@
-<ul>
-<%= if @current_user do %>
-  <li><%= @current_user.email %></li>
-  <li><%= link "Settings", to: Routes.user_settings_path(@conn, :edit) %></li>
-  <li><%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete %></li>
-<% else %>
-  <li><%= link "Register", to: Routes.user_registration_path(@conn, :new) %></li>
-  <li><%= link "Log in", to: Routes.user_session_path(@conn, :new) %></li>
-<% end %>
-</ul>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <span class="has-text-weight-bold">HelloPhxBulma</span>
+    </a>
+
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarUserMenu">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarUserMenu" class="navbar-menu">
+    <div class="navbar-start">
+      <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+        <div class="navbar-item">
+          <%= link "Live Dashboard", to: Routes.live_dashboard_path(@conn, :home), class: "navbar-item" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <%= if @current_user do %>
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link"><%= @current_user.email %></a>
+            <div class="navbar-dropdown">
+              <%= link "Settings", to: Routes.user_settings_path(@conn, :edit), class: "navbar-item" %>
+              <%= link "Log out", to: Routes.user_session_path(@conn, :delete), method: :delete, class: "navbar-item" %>
+            </div>
+          </div>
+        <% else %>
+          <div class="buttons">
+            <%= link "Register", to: Routes.user_registration_path(@conn, :new), class: "button is-primary" %>
+            <%= link "Log in", to: Routes.user_session_path(@conn, :new), class: "button is-light" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>
