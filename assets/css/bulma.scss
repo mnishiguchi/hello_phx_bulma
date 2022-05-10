@@ -1,0 +1,58 @@
+//
+// Update Bulma's global variables
+// See https://bulma.io/documentation/customize/variables
+//
+
+$primary: hsl(171, 100%, 35%);
+
+//
+// Import only what you need from Bulma
+// See https://github.com/jgthms/bulma/tree/master/sass
+//
+
+@import '../../deps/bulma/sass/utilities/_all';
+
+// https://bulma.io/documentation/layout/container
+$container-max-width: 1000px + (2 * $gap);
+
+@import '../../deps/bulma/sass/base/_all';
+
+@import '../../deps/bulma/sass/elements/box';
+@import '../../deps/bulma/sass/elements/button';
+@import '../../deps/bulma/sass/elements/container';
+@import '../../deps/bulma/sass/elements/content';
+@import '../../deps/bulma/sass/elements/icon';
+@import '../../deps/bulma/sass/elements/image';
+@import '../../deps/bulma/sass/elements/notification';
+@import '../../deps/bulma/sass/elements/progress';
+@import '../../deps/bulma/sass/elements/table';
+@import '../../deps/bulma/sass/elements/tag';
+@import '../../deps/bulma/sass/elements/title';
+@import '../../deps/bulma/sass/elements/other';
+
+@import '../../deps/bulma/sass/form/shared';
+@import '../../deps/bulma/sass/form/input-textarea';
+@import '../../deps/bulma/sass/form/checkbox-radio';
+@import '../../deps/bulma/sass/form/select';
+@import '../../deps/bulma/sass/form/file';
+@import '../../deps/bulma/sass/form/tools';
+
+@import '../../deps/bulma/sass/components/breadcrumb';
+@import '../../deps/bulma/sass/components/card';
+@import '../../deps/bulma/sass/components/dropdown';
+@import '../../deps/bulma/sass/components/level';
+@import '../../deps/bulma/sass/components/media';
+@import '../../deps/bulma/sass/components/menu';
+@import '../../deps/bulma/sass/components/message';
+@import '../../deps/bulma/sass/components/modal';
+@import '../../deps/bulma/sass/components/navbar';
+@import '../../deps/bulma/sass/components/pagination';
+@import '../../deps/bulma/sass/components/panel';
+@import '../../deps/bulma/sass/components/tabs';
+
+@import '../../deps/bulma/sass/grid/columns';
+@import '../../deps/bulma/sass/grid/tiles';
+
+@import '../../deps/bulma/sass/helpers/_all';
+
+@import '../../deps/bulma/sass/layout/_all';
