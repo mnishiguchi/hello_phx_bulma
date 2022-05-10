@@ -26,7 +26,13 @@ config :hello_phx_bulma, HelloPhxBulmaWeb.Endpoint,
   secret_key_base: "62tcrrMvnSB/oSCgPjJeWHH5SXYrCxwups03IierLY/7aTP8aKOwbM9qZV/RQmyi",
   watchers: [
     # Start the esbuild watcher by calling Esbuild.install_and_run(:default, args)
-    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
+    esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]},
+    # https://github.com/CargoSense/dart_sass
+    sass: {
+      DartSass,
+      :install_and_run,
+      [:default, ~w(--embed-source-map --source-map-urls=absolute --watch)]
+    }
   ]
 
 # ## SSL Support
