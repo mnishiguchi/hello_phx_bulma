@@ -55,7 +55,8 @@ defmodule HelloPhxBulma.MixProject do
       {:bulma, "0.9.3"},
       {:surface, "~> 0.7.4"},
       {:surface_bulma, "~> 0.4.0"},
-      {:surface_catalogue, "~> 0.4.0"}
+      {:surface_catalogue, "~> 0.4.0"},
+      {:timex, "~> 3.7"}
     ]
   end
 
