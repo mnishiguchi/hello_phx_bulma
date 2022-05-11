@@ -68,6 +68,34 @@ defmodule HelloPhxBulmaWeb do
     end
   end
 
+  def surface_view do
+    quote do
+      use Surface.LiveView,
+        layout: {HelloPhxBulmaWeb.LayoutView, "live.html"}
+
+      unquote(view_helpers())
+      unquote(surface_helpers())
+    end
+  end
+
+  def surface_live_component do
+    quote do
+      use Surface.LiveComponent
+
+      unquote(view_helpers())
+      unquote(surface_helpers())
+    end
+  end
+
+  def surface_component do
+    quote do
+      use Surface.Component
+
+      unquote(view_helpers())
+      unquote(surface_helpers())
+    end
+  end
+
   def router do
     quote do
       use Phoenix.Router
@@ -100,6 +128,15 @@ defmodule HelloPhxBulmaWeb do
       import HelloPhxBulmaWeb.ErrorHelpers
       import HelloPhxBulmaWeb.Gettext
       alias HelloPhxBulmaWeb.Router.Helpers, as: Routes
+    end
+  end
+
+  defp surface_helpers do
+    quote do
+      # https://surface-ui.org/builtincomponents
+      alias Surface.Components.Link
+      alias Surface.Components.LivePatch
+      alias Surface.Components.LiveRedirect
     end
   end
 

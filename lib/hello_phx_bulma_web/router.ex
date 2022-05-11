@@ -22,8 +22,7 @@ defmodule HelloPhxBulmaWeb.Router do
   scope "/", HelloPhxBulmaWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-    live "/demo", Demo
+    live "/", HomeLive, :index
   end
 
   # Other scopes may use custom stacks.
