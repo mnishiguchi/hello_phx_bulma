@@ -4,6 +4,9 @@ defmodule HelloPhxBulma.QuestionsFixtures do
   entities via the `HelloPhxBulma.Questions` context.
   """
 
+  alias HelloPhxBulma.Questions
+  alias HelloPhxBulma.Questions.Question
+
   @doc """
   Generate a question.
   """
@@ -14,7 +17,7 @@ defmodule HelloPhxBulma.QuestionsFixtures do
         content: "some content",
         help_text: "some help_text"
       })
-      |> HelloPhxBulma.Questions.create_question()
+      |> Questions.create_question()
 
     question
   end
@@ -22,14 +25,15 @@ defmodule HelloPhxBulma.QuestionsFixtures do
   @doc """
   Generate a question_option.
   """
-  def question_option_fixture(attrs \\ %{}) do
+  def question_option_fixture(%Question{} = question, attrs \\ %{}) do
     {:ok, question_option} =
       attrs
       |> Enum.into(%{
+        question_id: question.id,
         content: "some content",
         correct: true
       })
-      |> HelloPhxBulma.Questions.create_question_option()
+      |> Questions.create_question_option()
 
     question_option
   end

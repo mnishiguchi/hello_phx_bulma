@@ -67,19 +67,31 @@ defmodule HelloPhxBulma.QuestionsTest do
     @invalid_attrs %{content: nil, correct: nil}
 
     test "list_question_options/0 returns all question_options" do
-      question_option = question_option_fixture()
+      question = question_fixture()
+      question_option = question_option_fixture(question)
       assert Questions.list_question_options() == [question_option]
     end
 
+    test "list_question_options/1 returns all question_options for a question" do
+      {question1, question2} = {question_fixture(), question_fixture()}
+      question_option = question_option_fixture(question1)
+      assert Questions.list_question_options(question1) == [question_option]
+      assert Questions.list_question_options(question2) == []
+    end
+
     test "get_question_option!/1 returns the question_option with given id" do
-      question_option = question_option_fixture()
+      question = question_fixture()
+      question_option = question_option_fixture(question)
       assert Questions.get_question_option!(question_option.id) == question_option
     end
 
     test "create_question_option/1 with valid data creates a question_option" do
-      valid_attrs = %{content: "some content", correct: true}
+      question = question_fixture()
+      valid_attrs = %{content: "some content", correct: true, question_id: question.id}
 
-      assert {:ok, %QuestionOption{} = question_option} = Questions.create_question_option(valid_attrs)
+      assert {:ok, %QuestionOption{} = question_option} =
+               Questions.create_question_option(valid_attrs)
+
       assert question_option.content == "some content"
       assert question_option.correct == true
     end
@@ -89,28 +101,40 @@ defmodule HelloPhxBulma.QuestionsTest do
     end
 
     test "update_question_option/2 with valid data updates the question_option" do
-      question_option = question_option_fixture()
+      question = question_fixture()
+      question_option = question_option_fixture(question)
       update_attrs = %{content: "some updated content", correct: false}
 
-      assert {:ok, %QuestionOption{} = question_option} = Questions.update_question_option(question_option, update_attrs)
+      assert {:ok, %QuestionOption{} = question_option} =
+               Questions.update_question_option(question_option, update_attrs)
+
       assert question_option.content == "some updated content"
       assert question_option.correct == false
     end
 
     test "update_question_option/2 with invalid data returns error changeset" do
-      question_option = question_option_fixture()
-      assert {:error, %Ecto.Changeset{}} = Questions.update_question_option(question_option, @invalid_attrs)
+      question = question_fixture()
+      question_option = question_option_fixture(question)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Questions.update_question_option(question_option, @invalid_attrs)
+
       assert question_option == Questions.get_question_option!(question_option.id)
     end
 
     test "delete_question_option/1 deletes the question_option" do
-      question_option = question_option_fixture()
+      question = question_fixture()
+      question_option = question_option_fixture(question)
       assert {:ok, %QuestionOption{}} = Questions.delete_question_option(question_option)
-      assert_raise Ecto.NoResultsError, fn -> Questions.get_question_option!(question_option.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        Questions.get_question_option!(question_option.id)
+      end
     end
 
     test "change_question_option/1 returns a question_option changeset" do
-      question_option = question_option_fixture()
+      question = question_fixture()
+      question_option = question_option_fixture(question)
       assert %Ecto.Changeset{} = Questions.change_question_option(question_option)
     end
   end

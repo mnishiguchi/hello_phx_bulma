@@ -14,6 +14,9 @@
   <div id="navbarUserMenu" class="navbar-menu">
     <div class="navbar-start">
       <div class="navbar-item">
+        <%= link "Questions", to: Routes.question_index_path(@conn, :index), class: "navbar-item" %>
+      </div>
+      <div class="navbar-item">
         <%= link "Components", to: "/catalogue/components/HelloPhxBulmaWeb.Components.Hero/example", class: "navbar-item" %>
       </div>
       <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>

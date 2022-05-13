@@ -1,6 +1,7 @@
 defmodule HelloPhxBulmaWeb.QuestionLive.Index do
-  use HelloPhxBulmaWeb, :live_view
+  use HelloPhxBulmaWeb, :surface_live_view
 
+  alias SurfaceBulma.Title
   alias HelloPhxBulma.Questions
   alias HelloPhxBulma.Questions.Question
 
@@ -33,7 +34,7 @@ defmodule HelloPhxBulmaWeb.QuestionLive.Index do
   end
 
   @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
+  def handle_event("delete-question", %{"id" => id}, socket) do
     question = Questions.get_question!(id)
     {:ok, _} = Questions.delete_question(question)
 

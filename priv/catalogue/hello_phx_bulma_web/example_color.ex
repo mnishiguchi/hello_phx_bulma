@@ -17,15 +17,24 @@ defmodule HelloPhxBulmaWeb.Components.Hero.ExampleColor do
     <Hero color="light">
       <Title size="4" spaced><.title /></Title>
     </Hero>
-
+    <Hero color="dark">
+      <Title size="4" spaced><.title /></Title>
+    </Hero>
+    <Hero color="primary">
+      <Title size="4" spaced><.title /></Title>
+    </Hero>
+    <Hero color="link">
+      <Title size="4" spaced><.title /></Title>
+    </Hero>
     <Hero color="info">
       <Title size="4" spaced><.title /></Title>
     </Hero>
-
+    <Hero color="success">
+      <Title size="4" spaced><.title /></Title>
+    </Hero>
     <Hero color="warning">
       <Title size="4" spaced><.title /></Title>
     </Hero>
-
     <Hero color="danger">
       <Title size="4" spaced><.title /></Title>
     </Hero>

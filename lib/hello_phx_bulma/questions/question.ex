@@ -17,7 +17,7 @@ defmodule HelloPhxBulma.Questions.Question do
   def changeset(question, attrs) do
     question
     |> cast(attrs, [:content, :help_text])
-    |> validate_required([:content, :help_text])
+    |> validate_required([:content])
     |> cast_assoc(:question_options, with: &QuestionOption.changeset/2)
   end
 end

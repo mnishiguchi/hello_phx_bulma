@@ -21,6 +21,13 @@ defmodule HelloPhxBulma.Questions do
     Repo.all(Question)
   end
 
+  def list_questions_for_quiz do
+    list_questions()
+    |> Repo.preload(:question_options)
+    |> Enum.reject(fn question -> question.question_options |> Enum.empty?() end)
+    |> Enum.shuffle()
+  end
+
   @doc """
   Gets a single question.
 
@@ -117,6 +124,12 @@ defmodule HelloPhxBulma.Questions do
     Repo.all(QuestionOption)
   end
 
+  def list_question_options(%Question{} = question) do
+    question
+    |> Ecto.assoc(:question_options)
+    |> Repo.all()
+  end
+
   @doc """
   Gets a single question_option.
 
@@ -145,8 +158,15 @@ defmodule HelloPhxBulma.Questions do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_question_option(attrs \\ %{}) do
+  def create_question_option(attrs) do
     %QuestionOption{}
+    |> QuestionOption.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  def create_question_option(%Question{} = question, attrs) do
+    question
+    |> Ecto.build_assoc(:question_options)
     |> QuestionOption.changeset(attrs)
     |> Repo.insert()
   end

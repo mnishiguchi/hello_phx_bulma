@@ -23,6 +23,7 @@ defmodule HelloPhxBulmaWeb.Router do
     pipe_through :browser
 
     live "/", HomeLive, :index
+    live "/quiz", QuizLive, :index
 
     live "/questions", QuestionLive.Index, :index
     live "/questions/new", QuestionLive.Index, :new
@@ -31,12 +32,8 @@ defmodule HelloPhxBulmaWeb.Router do
     live "/questions/:id", QuestionLive.Show, :show
     live "/questions/:id/show/edit", QuestionLive.Show, :edit
 
-    live "/question_options", QuestionOptionLive.Index, :index
     live "/question_options/new", QuestionOptionLive.Index, :new
     live "/question_options/:id/edit", QuestionOptionLive.Index, :edit
-
-    live "/question_options/:id", QuestionOptionLive.Show, :show
-    live "/question_options/:id/show/edit", QuestionOptionLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

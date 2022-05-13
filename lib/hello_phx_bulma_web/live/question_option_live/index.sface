@@ -1,0 +1,12 @@
+{#if @live_action in [:new, :edit]}
+  <.modal return_to={Routes.question_show_path(@socket, :show, @question)}>
+    <.live_component
+      module={HelloPhxBulmaWeb.QuestionOptionLive.FormComponent}
+      id={@question_option.id || :new}
+      title={["Option for ", @question.content]}
+      action={@live_action}
+      question_option={@question_option}
+      return_to={Routes.question_show_path(@socket, :show, @question)}
+    />
+  </.modal>
+{/if}

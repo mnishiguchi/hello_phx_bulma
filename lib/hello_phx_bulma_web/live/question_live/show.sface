@@ -1,0 +1,70 @@
+<div class="block">
+  <Title size="2">Question</Title>
+
+  <div class="block">
+    <p>{@question.content}</p>
+  </div>
+
+  <div class="block" :if={@question.help_text}>
+    <Title size="4">Help text</Title>
+    <p>{@question.help_text}</p>
+  </div>
+
+  {live_patch("Edit question", to: Routes.question_show_path(@socket, :edit, @question))}
+</div>
+
+<div class="block">
+  <Title size="4">Options</Title>
+  <table class="table is-fullwidth">
+    <thead>
+      <tr>
+        <th>Option</th>
+        <th>Correct</th>
+
+        <th />
+      </tr>
+    </thead>
+    <tbody id="question_options">
+      {#for question_option <- @question.question_options}
+        <tr id={"question_option-#{question_option.id}"}>
+          <td>{question_option.content}</td>
+          <td>{#if question_option.correct}✓{/if}</td>
+          <td>
+            {live_patch("Edit",
+              to:
+                Routes.question_option_index_path(@socket, :edit, question_option, question_id: @question.id)
+            )}
+            |
+            {link("Delete",
+              to: "#",
+              phx_click: "delete-question-option",
+              phx_value_id: question_option.id,
+              data: [confirm: "Are you sure?"]
+            )}
+          </td>
+        </tr>
+      {/for}
+    </tbody>
+  </table>
+
+  {live_patch("Add new option",
+    to: Routes.question_option_index_path(@socket, :new, question_id: @question.id)
+  )}
+</div>
+
+<div class="block">
+  {live_redirect("Back to question list", to: Routes.question_index_path(@socket, :index))}
+</div>
+
+{#if @live_action in [:edit]}
+  <.modal return_to={Routes.question_show_path(@socket, :show, @question)}>
+    <.live_component
+      module={HelloPhxBulmaWeb.QuestionLive.FormComponent}
+      id={@question.id}
+      title={@page_title}
+      action={@live_action}
+      question={@question}
+      return_to={Routes.question_show_path(@socket, :show, @question)}
+    />
+  </.modal>
+{/if}

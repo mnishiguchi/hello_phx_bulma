@@ -68,7 +68,7 @@ defmodule HelloPhxBulmaWeb do
     end
   end
 
-  def surface_view do
+  def surface_live_view do
     quote do
       use Surface.LiveView,
         layout: {HelloPhxBulmaWeb.LayoutView, "live.html"}

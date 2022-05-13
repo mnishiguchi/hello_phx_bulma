@@ -8,7 +8,7 @@ defmodule HelloPhxBulmaWeb.BulmaInputHelpers do
   ## Examples
 
       bulma_input f, :name, placeholder: "Name", autocomplete: "off"
-      bulma_input f, :phone, using: :telephone_input, placeholder: "Phone", autocomplete: "off"
+      bulma_input f, :phone, using: :textarea, autocomplete: "off"
 
   """
   def bulma_input(form, field, opts \\ []) do
@@ -20,6 +20,22 @@ defmodule HelloPhxBulmaWeb.BulmaInputHelpers do
         build_label(form, field, label_opts),
         build_input(form, field, input_opts),
         HelloPhxBulmaWeb.ErrorHelpers.error_tag(form, field)
+      ]
+    end
+  end
+
+  @doc """
+  ## Examples
+
+      bulma_checkbox(f, :correct)
+
+  """
+  def bulma_checkbox(form, field, opts \\ []) do
+    content_tag :label, class: "checkbox" do
+      [
+        checkbox(form, field, opts),
+        ' ',
+        opts[:label] || field |> to_string() |> Phoenix.Naming.humanize()
       ]
     end
   end

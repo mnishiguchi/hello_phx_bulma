@@ -1,9 +1,14 @@
 defmodule HelloPhxBulmaWeb.QuestionOptionLive.FormComponent do
-  use HelloPhxBulmaWeb, :live_component
+  use HelloPhxBulmaWeb, :surface_live_component
 
+  alias SurfaceBulma.Title
+  alias SurfaceBulma.Form
   alias HelloPhxBulma.Questions
 
-  @impl true
+  prop title, :struct, required: true
+
+  data changeset, :struct
+
   def update(%{question_option: question_option} = assigns, socket) do
     changeset = Questions.change_question_option(question_option)
 
@@ -13,7 +18,33 @@ defmodule HelloPhxBulmaWeb.QuestionOptionLive.FormComponent do
      |> assign(:changeset, changeset)}
   end
 
-  @impl true
+  def render(assigns) do
+    ~F"""
+    <div>
+      <Title size="4">{@title}</Title>
+
+      <Form
+        for={@changeset}
+        change="validate"
+        submit="save"
+        opts={id: "question_option-form"}
+        :let={form: f}
+      >
+        {hidden_inputs_for(f)}
+        {hidden_input(f, :question_id)}
+        {error_tag(f, :question_id)}
+
+        {bulma_input(f, :content, using: :textarea, autocomplete: "off", phx_debounce: "250")}
+        {bulma_checkbox(f, :correct)}
+
+        <div class="control mt-4">
+          {submit("Save", phx_disable_with: "Saving...", class: "button is-primary")}
+        </div>
+      </Form>
+    </div>
+    """
+  end
+
   def handle_event("validate", %{"question_option" => question_option_params}, socket) do
     changeset =
       socket.assigns.question_option

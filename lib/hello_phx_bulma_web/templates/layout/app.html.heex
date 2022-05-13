@@ -1,5 +1,4 @@
 <main class="container mb-6 px-2">
-  <p class="notification is-info" role="alert"><%= get_flash(@conn, :info) %></p>
-  <p class="notification is-danger" role="alert"><%= get_flash(@conn, :error) %></p>
+  <HelloPhxBulmaWeb.FlashMessage.flash_message conn={@conn} />
   <%= @inner_content %>
 </main>

@@ -1,12 +1,16 @@
 defmodule HelloPhxBulmaWeb.QuestionOptionLive.Index do
-  use HelloPhxBulmaWeb, :live_view
+  use HelloPhxBulmaWeb, :surface_live_view
 
+  alias SurfaceBulma.Title
+  alias HelloPhxBulma.Repo
   alias HelloPhxBulma.Questions
   alias HelloPhxBulma.Questions.QuestionOption
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, assign(socket, :question_options, list_question_options())}
+  def mount(%{"question_id" => question_id}, _session, socket) do
+    {:ok,
+     socket
+     |> ensure_question_and_question_options(question_id)}
   end
 
   @impl true
@@ -23,24 +27,16 @@ defmodule HelloPhxBulmaWeb.QuestionOptionLive.Index do
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Question option")
-    |> assign(:question_option, %QuestionOption{})
+    |> assign(:question_option, QuestionOption.new(socket.assigns.question))
   end
 
-  defp apply_action(socket, :index, _params) do
+  defp ensure_question_and_question_options(socket, question_id) do
+    question =
+      Questions.get_question!(question_id || socket.assigns.question.id)
+      |> Repo.preload(:question_options)
+
     socket
-    |> assign(:page_title, "Listing Question options")
-    |> assign(:question_option, nil)
-  end
-
-  @impl true
-  def handle_event("delete", %{"id" => id}, socket) do
-    question_option = Questions.get_question_option!(id)
-    {:ok, _} = Questions.delete_question_option(question_option)
-
-    {:noreply, assign(socket, :question_options, list_question_options())}
-  end
-
-  defp list_question_options do
-    Questions.list_question_options()
+    |> assign(:question, question)
+    |> assign(:question_options, question.question_options)
   end
 end

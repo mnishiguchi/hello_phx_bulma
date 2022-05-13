@@ -1,7 +1,8 @@
 defmodule HelloPhxBulmaWeb.HomeLive do
-  use HelloPhxBulmaWeb, :surface_view
+  use HelloPhxBulmaWeb, :surface_live_view
 
   alias HelloPhxBulmaWeb.Components.Hero
+  alias HelloPhxBulmaWeb.Components.Counter
   alias SurfaceBulma.Title
   alias SurfaceBulma.SubTitle
   import HelloPhxBulma.Countdown
@@ -20,23 +21,29 @@ defmodule HelloPhxBulmaWeb.HomeLive do
 
   def render(assigns) do
     ~F"""
-    <Hero color="light">
-      <Title size="2" spaced>我々ハ錬金術師我ガ友ヨ</Title>
-      <SubTitle size="5">
-        いろはにほへとちりぬるを<br>
-        わかよたれそつねならむ<br>
-        うゐのおくやまけふこえて<br>
-        あさきゆめみしゑひもせすん
-      </SubTitle>
+    <div>
+      <Hero color="light" size="large">
+        <Title size="2" spaced>我々ハ錬金術師我ガ友ヨ</Title>
+        <SubTitle size="5">
+          いろはにほへとちりぬるを<br>
+          わかよたれそつねならむ<br>
+          うゐのおくやまけふこえて<br>
+          あさきゆめみしゑひもせすん
+        </SubTitle>
 
-      <div class="block">
-        <a href="https://autoracex.connpass.com" class="button is-primary">Get Started</a>
-      </div>
+        <div class="block">
+          {live_patch("Get started", to: Routes.quiz_path(@socket, :index), class: "button is-primary")}
+        </div>
 
-      <p class="block">
-        {humanize_time_remaining(@time_remaining)}
-      </p>
-    </Hero>
+        <p class="block">
+          {humanize_time_remaining(@time_remaining)}
+        </p>
+
+        <div class="block">
+          <Counter id="home-counter" />
+        </div>
+      </Hero>
+    </div>
     """
   end
 
