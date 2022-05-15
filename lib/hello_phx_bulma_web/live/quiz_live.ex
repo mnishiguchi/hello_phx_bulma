@@ -20,6 +20,7 @@ defmodule HelloPhxBulmaWeb.QuizLive do
       question={@question_lookup |> Map.fetch!(@current_question_index)}
       answer_event="evaluate-answer"
     />
+    <div phx-hook="ConfettiHook" id="confetti" />
     """
   end
 
@@ -28,16 +29,19 @@ defmodule HelloPhxBulmaWeb.QuizLive do
       true ->
         case quiz_completed?(socket) do
           true ->
+            Process.send_after(self(), :congratulate, 2500)
+
             {:noreply,
              socket
              |> clear_flash()
              |> put_flash(:success, "Congratulations")
-             |> push_redirect(to: "/")}
+             |> push_event("mn:confetti", %{size: 2, count: 80})}
 
           false ->
             {:noreply,
              socket
              |> clear_flash()
+             |> push_event("mn:confetti", %{size: 1})
              |> put_flash(:info, "Correct")
              |> update(:current_question_index, &(&1 + 1))}
         end
@@ -48,6 +52,13 @@ defmodule HelloPhxBulmaWeb.QuizLive do
          |> clear_flash()
          |> put_flash(:dark, "Wrong")}
     end
+  end
+
+  def handle_info(:congratulate, socket) do
+    {:noreply,
+     socket
+     |> put_flash(:success, "Congratulations")
+     |> push_redirect(to: "/")}
   end
 
   defp answer_correct?(socket, question_option_id) do

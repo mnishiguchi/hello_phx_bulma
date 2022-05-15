@@ -22,7 +22,7 @@ defmodule HelloPhxBulmaWeb.HomeLive do
   def render(assigns) do
     ~F"""
     <div>
-      <Hero color="light" size="large">
+      <Hero color="light" size="medium">
         <Title size="2" spaced>我々ハ錬金術師我ガ友ヨ</Title>
         <SubTitle size="5">
           いろはにほへとちりぬるを<br>
